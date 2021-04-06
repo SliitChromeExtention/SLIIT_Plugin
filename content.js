@@ -17,20 +17,29 @@ function onclick(){
         document.querySelectorAll('textarea').forEach((input) => {
           //console.log(input.value)
           let wordlist = input.value
-          
-         
-          for(let i=0; i< wordlist.length; i++){
-            let words = wordlist.split(/(\s+)/).filter( e => e.trim().length > 0);
-            console.log(words[i])
+          //console.log('word list :'+wordlist)
+          let words = wordlist.split(/(\s+)/).filter( e => e.trim().length > 0)
+          //console.log(words)
+          for(let i=0; i<words.length; i++){
+            fetch('http://127.0.0.1:5000/api/spellchecking',{
+              method:'POST',
+              headers:{
+                'Content-Type':'application/json'
+              },
+              body: JSON.stringify({
+                "word": words[i].toString()
+              })
+            }).then(res => {
+              return res.json()
+            })
+            .then(data => console.log(data))
+            .catch(error => console.log('ERROR!!'))
             
+            
+  
           }
-
-
-        //  let wordlist = input.split(/(\s+)/).filter( e => e.trim().length > 0);
-        //  console.log(wordlist);
           
-
-        });
+        })
         
       }
       
