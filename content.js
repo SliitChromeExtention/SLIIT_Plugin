@@ -32,7 +32,15 @@ function onclick(){
             }).then(res => {
               return res.json()
             })
-            .then(data => console.log(data))
+            .then(data => {
+              if(data == false){
+                console.log('this word is not found :'+words[i])
+                document.querySelectorAll('textarea').forEach((word)=>{
+                    //do something here....
+                  
+                })
+              }
+            })
             .catch(error => console.log('ERROR!!'))
             
             
