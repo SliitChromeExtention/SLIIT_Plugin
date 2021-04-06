@@ -35,10 +35,8 @@ function onclick(){
             .then(data => {
               if(data == false){
                 console.log('this word is not found :'+words[i])
-                document.querySelectorAll('textarea').forEach((word)=>{
-                    //do something here....
-                  
-                })
+                console.log(document.querySelector('textarea').style)
+                document.querySelector('textarea').style.textDecorationColor = 'red'
               }
             })
             .catch(error => console.log('ERROR!!'))
