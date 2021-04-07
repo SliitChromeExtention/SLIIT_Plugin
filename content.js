@@ -34,9 +34,12 @@ function onclick(){
             })
             .then(data => {
               if(data == false){
-                console.log('this word is not found :'+words[i])
-                console.log(document.querySelector('textarea').style)
-                document.querySelector('textarea').style.textDecorationColor = 'red'
+                console.log('this word is incorrect :'+words[i])
+                //console.log(document.querySelector('textarea').style)
+                //document.querySelector('textarea').style.textDecoration = "line-through"
+                // var txtArea = document.querySelector('textarea');
+                // txtArea.value = txtArea.value.replace(words[i], words[i].fontcolor('red'));
+               
               }
             })
             .catch(error => console.log('ERROR!!'))
