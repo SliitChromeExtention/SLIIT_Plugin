@@ -43,7 +43,10 @@ function onclick(){
                     // document.querySelector('textarea').style.textDecoration = "line-through"
                     // var txtArea = document.querySelector('div');
                     // txtArea.value = txtArea.value.replace(words[i], words[i].fontcolor('red'));
-                    nodeList[i].innerText.replace(wordList[j], wordList[j].css.style.fontcolor('red'))//this line is not correct yet
+                    var element = nodeList[i]
+                    var originalHtml = element.innerHTML;
+                    var newHtml = originalHtml.replace(wordList[j], wordList[j].fontcolor("red"));
+                    element.innerHTML = newHtml;
                    
                   }
                 })
