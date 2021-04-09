@@ -17,9 +17,11 @@ function onclick(){
       if(e.keyCode == 32){
 
        let nodeList = document.querySelectorAll('#mydiv')
+       
        for(let i=0; i<nodeList.length; i++){
          console.log(nodeList.length)
          console.log(nodeList)
+         nodeList[i].setAttribute('spellcheck', false)
         
          //console.log(nodeList[i].innerText)
          wordList = nodeList[i].innerText.trim().replace(/^\s+|\s+$/g,'').split(/\s+/);
@@ -45,7 +47,7 @@ function onclick(){
                     // txtArea.value = txtArea.value.replace(words[i], words[i].fontcolor('red'));
                     var element = nodeList[i]
                     var originalHtml = element.innerHTML;
-                    var newHtml = originalHtml.replace(wordList[j], wordList[j].fontcolor("red"));
+                    var newHtml = originalHtml.replace(new RegExp(wordList[j], "g"), wordList[j].fontcolor("red"));
                     element.innerHTML = newHtml;
                    
                   }
