@@ -36,7 +36,7 @@ function onKeySpacePress(e){
                     //  if(data == false){
                     //    console.log('this word is incorrect :'+wordList[j])
                        
-                       
+                       console.log(typeof(data))
                        var element = nodeList[i]
                        var originalHtml = element.innerHTML;
                        var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
