@@ -20,7 +20,7 @@ function onKeySpacePress(e){
            
             
             for(let j=0; j<wordList.length; j++){
-             fetch('http://127.0.0.1:5000/api/spellchecking',{
+             fetch('http://127.0.0.1:5000/api/misspelledword',{
                      method:'POST',
                      headers:{
                        'Content-Type':'application/json'
@@ -32,20 +32,21 @@ function onKeySpacePress(e){
                      return res.json()
                    })
                    .then(data => {
-                     if(data == false){
-                       console.log('this word is incorrect :'+wordList[j])
+                     
+                    //  if(data == false){
+                    //    console.log('this word is incorrect :'+wordList[j])
                        
                        
                        var element = nodeList[i]
                        var originalHtml = element.innerHTML;
                        var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
-                       var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), wordList[j].fontcolor("red"));
+                       var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), data);
                        element.innerHTML = newHtml;
                        
                        
                        
                       
-                     }
+                    //  }
                    })
                    .catch(error => console.log('ERROR!!' +error))
                    
@@ -77,9 +78,6 @@ function onKeySpacePress(e){
 //   console.log(textarea.value)
   
 // }
-
-
-
 
 
 
