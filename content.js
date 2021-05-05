@@ -36,12 +36,51 @@ function onKeySpacePress(e){
                     //  if(data == false){
                     //    console.log('this word is incorrect :'+wordList[j])
                        
-                       console.log(typeof(data))
-                       var element = nodeList[i]
-                       var originalHtml = element.innerHTML;
-                       var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
-                       var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), data);
-                       element.innerHTML = newHtml;
+                      // console.log(typeof(data))
+                      if(data != false){
+                        var element = nodeList[i]
+                        var originalHtml = element.innerHTML;
+                        var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
+                        var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), data);
+                        element.innerHTML = newHtml;
+                      }else{
+                        
+                          fetch('http://127.0.0.1:5000/api/spellchecking',{
+                                  method:'POST',
+                                  headers:{
+                                    'Content-Type':'application/json'
+                                  },
+                                  body: JSON.stringify({
+                                    "word": wordList[j].toString()
+                                  })
+                                }).then(res => {
+                                  return res.json()
+                                })
+                                .then(data => {
+                                  if(data == false){
+                                    console.log('this word is incorrect :'+wordList[j])
+                                    
+                                    
+                                    var element = nodeList[i]
+                                    var originalHtml = element.innerHTML;
+                                    var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
+                                    var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), wordList[j].fontcolor("red"));
+                                    element.innerHTML = newHtml;
+                                    
+                                    
+                                    
+                                   
+                                  }
+                                })
+                                .catch(error => console.log('ERROR!!' +error))
+                                
+                
+                        
+                        console.log('word not found')
+                
+                      }
+                      
+                       
                        
                        
                        
@@ -52,7 +91,42 @@ function onKeySpacePress(e){
                    
    
             }
-   
+
+            //make words that dosen't in the dictionary Red
+
+            // for(let j=0; j<wordList.length; j++){
+            //   fetch('http://127.0.0.1:5000/api/spellchecking',{
+            //           method:'POST',
+            //           headers:{
+            //             'Content-Type':'application/json'
+            //           },
+            //           body: JSON.stringify({
+            //             "word": wordList[j].toString()
+            //           })
+            //         }).then(res => {
+            //           return res.json()
+            //         })
+            //         .then(data => {
+            //           if(data == false){
+            //             console.log('this word is incorrect :'+wordList[j])
+                        
+                        
+            //             var element = nodeList[i]
+            //             var originalHtml = element.innerHTML;
+            //             var cleardHTMl = originalHtml.replace(/&nbsp;/g, '');
+            //             var newHtml = cleardHTMl.replace(new RegExp(wordList[j], "g"), wordList[j].fontcolor("red"));
+            //             element.innerHTML = newHtml;
+                        
+                        
+                        
+                       
+            //           }
+            //         })
+            //         .catch(error => console.log('ERROR!!' +error))
+                    
+    
+            //  }
+   //spellchecking request ends here
             
             
            
@@ -68,16 +142,6 @@ function onKeySpacePress(e){
 
       
     }
-
-
-
-// textarea.addEventListener('change',onchange);
-
-// function onchange(){
-//   let textarea = document.getElementById('textarea')
-//   console.log(textarea.value)
-  
-// }
 
 
 
