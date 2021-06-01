@@ -133,7 +133,17 @@ function onKeySpacePress(e){
                                               span.setAttribute("class", "word")
                                               span.appendChild(drpContent)
 
+                                              var links = document.querySelectorAll('a')
+                                              links.forEach(link => {
+                                                link.addEventListener('click', e =>{
+                                                  // 
+                                                  span.innerText = link.innerText
+                                                  span.setAttribute("style", "color:black")
+                                                  console.log(link.innerText)
+                                                })
                                                 
+                                                
+                                              });
 
 
 
