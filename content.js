@@ -101,7 +101,7 @@ function onKeySpacePress(e){
                                       spanlist.forEach(span => {
                                         if(span.accessKey>=1){
                                           span.addEventListener('click',e =>{
-                                            console.log(span.textContent)
+                                            //console.log(span.textContent)
                                             
 
                                             fetch('http://127.0.0.1:5000/api/closewords',{
@@ -117,7 +117,44 @@ function onKeySpacePress(e){
                                             })
                                             .then(data => {
                                               console.log(data)
-                                          
+                                              
+                                              var drpContent = document.createElement('div')
+                                              drpContent.setAttribute("class", "dropdown-content")
+
+                                              // var content1 = document.createElement('a')
+                                              // content1.setAttribute("href", "#")
+                                              // content1.innerText = data[0]
+
+                                              // var content2 = document.createElement('a')
+                                              // content2.setAttribute("href", "#")
+                                              // content2.innerText = "Link 3"
+
+                                              // var content3 = document.createElement('a')
+                                              // content3.setAttribute("href", "#")
+                                              // content3.innerText = "Link 3"
+
+                                              
+
+                                              // drpContent.appendChild(content1)
+                                              // drpContent.appendChild(content2)
+                                              // drpContent.appendChild(content3)
+                                              for(var x=0; x<data.length;x++){
+                                                var content = document.createElement('a')
+                                                content.setAttribute("href","#")
+                                                content.innerText = data[x]
+                                                drpContent.appendChild(content)
+                                              }
+
+                                              span.setAttribute("class", "word")
+                                              span.appendChild(drpContent)
+
+                                                
+
+
+
+
+
+                                              
                                             })
                                             .catch(error => console.log('ERROR!!' +error))
 
@@ -158,6 +195,36 @@ function onKeySpacePress(e){
 
       
     }
+
+
+
+// function renderList(list){
+
+//   console.log(list)
+
+//   fetch(chrome.runtime.getURL('/dropdown.html'))
+//   .then(response => response.text())
+//   .then(data => {
+//      // document.getElementById('mydiv').innerHTML = data;
+//      document.querySelectorAll('span')[0].insertAdjacentHTML('beforeend', data)
+//       //document.body.insertAdjacentHTML('beforebegin', data);
+      
+
+
+
+
+
+
+//       // other code
+//       // eg update injected elements,
+//       // add event listeners or logic to connect to other parts of the app
+//   }).catch(err => {
+//       // handle error
+//       console.log(err)
+//   });
+
+// }
+
 
 
 
