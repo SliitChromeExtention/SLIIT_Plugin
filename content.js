@@ -118,33 +118,18 @@ function onKeySpacePress(e){
                                             .then(data => {
                                               console.log(data)
                                               
+                                              //create a div add attributes
                                               var drpContent = document.createElement('div')
                                               drpContent.setAttribute("class", "dropdown-content")
 
-                                              // var content1 = document.createElement('a')
-                                              // content1.setAttribute("href", "#")
-                                              // content1.innerText = data[0]
-
-                                              // var content2 = document.createElement('a')
-                                              // content2.setAttribute("href", "#")
-                                              // content2.innerText = "Link 3"
-
-                                              // var content3 = document.createElement('a')
-                                              // content3.setAttribute("href", "#")
-                                              // content3.innerText = "Link 3"
-
-                                              
-
-                                              // drpContent.appendChild(content1)
-                                              // drpContent.appendChild(content2)
-                                              // drpContent.appendChild(content3)
+                                              //create links inside dropdown list
                                               for(var x=0; x<data.length;x++){
                                                 var content = document.createElement('a')
                                                 content.setAttribute("href","#")
                                                 content.innerText = data[x]
                                                 drpContent.appendChild(content)
                                               }
-
+                                              //append dropdwon list to the span
                                               span.setAttribute("class", "word")
                                               span.appendChild(drpContent)
 
