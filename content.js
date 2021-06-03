@@ -117,21 +117,41 @@ function onKeySpacePress(e){
                                             })
                                             .then(data => {
                                               console.log(data)
-                                              
-                                              //create a div add attributes
-                                              var drpContent = document.createElement('div')
-                                              drpContent.setAttribute("class", "dropdown-content")
+                                              var num = 0
+                                              // `element` is the element you want to wrap
+                                              var parent = span.parentNode;
+                                             
+                                              var dropdown = document.createElement('div');
+                                              dropdown.setAttribute("class", "dropdown")
 
-                                              //create links inside dropdown list
-                                              for(var x=0; x<data.length;x++){
-                                                var content = document.createElement('a')
-                                                content.setAttribute("href","#")
-                                                content.innerText = data[x]
-                                                drpContent.appendChild(content)
+                                              // set the wrapper as child (instead of the element)
+                                              parent.replaceChild(dropdown, span);
+                                             // console.log(parent)
+
+                                              // set element as child of wrapper
+                                              dropdown.appendChild(span);
+                                              
+                                             
+                                              span.setAttribute("class", "dropbtn")
+
+                                              //create dropdown div and add accesskey as that divs id
+                                              var myDropdown = document.createElement('div')
+                                              myDropdown.setAttribute("class", "dropdown-content")
+                                              myDropdown.setAttribute("id",span.accessKey)
+
+                                             
+
+                                              for(var i=0; i<data.length;i++){
+                                                var a = document.createElement('a')
+                                                a.setAttribute('href','#')
+                                                a.innerText = data[i]
+                                                myDropdown.appendChild(a)
+                                                
+                                              
                                               }
-                                              //append dropdwon list to the span
-                                              span.setAttribute("class", "word")
-                                              span.appendChild(drpContent)
+                                              dropdown.appendChild(span)
+                                              dropdown.appendChild(myDropdown)
+                                              
 
                                               var links = document.querySelectorAll('a')
                                               links.forEach(link => {
@@ -139,11 +159,35 @@ function onKeySpacePress(e){
                                                   // 
                                                   span.innerText = link.innerText
                                                   span.setAttribute("style", "color:black")
-                                                  console.log(link.innerText)
+                                                  placeCaretAtEnd(document.getElementById('mydiv'))
+                                                  
                                                 })
-                                                
-                                                
                                               });
+
+                                   
+                                              //JS code
+                                              
+                                              
+                                              document.getElementById(span.accessKey).classList.toggle("show");
+                                              console.log(document.getElementById(span.accessKey))
+                                              
+                                    
+                                              window.onclick = function(event) {
+                                                if (!event.target.matches('.dropbtn')) {
+                                                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                                                  var i;
+                                                  for (i = 0; i < dropdowns.length; i++) {
+                                                    var openDropdown = dropdowns[i];
+                                                    if (openDropdown.classList.contains('show')) {
+                                                      openDropdown.classList.remove('show');
+                                                    }
+                                                  }
+                                                }
+                                              }
+
+                                              
+
+
 
 
 
