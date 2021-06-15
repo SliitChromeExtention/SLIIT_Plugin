@@ -117,7 +117,8 @@ function onKeySpacePress(e){
                                             })
                                             .then(data => {
                                               console.log(data)
-                                              var num = 0
+                                              
+                                              num = Math.random()
                                               // `element` is the element you want to wrap
                                               var parent = span.parentNode;
                                              
@@ -137,39 +138,86 @@ function onKeySpacePress(e){
                                               //create dropdown div and add accesskey as that divs id
                                               var myDropdown = document.createElement('div')
                                               myDropdown.setAttribute("class", "dropdown-content")
-                                              myDropdown.setAttribute("id",span.accessKey)
+                                              myDropdown.setAttribute("id",num)
 
                                              
 
                                               for(var i=0; i<data.length;i++){
                                                 var a = document.createElement('a')
                                                 a.setAttribute('href','#')
+                                                a.setAttribute('class','w')
                                                 a.innerText = data[i]
                                                 myDropdown.appendChild(a)
                                                 
                                               
                                               }
+
+                                              //create add to dictionary link
+                                              var add_to_local_dictionary = document.createElement('a')
+                                              add_to_local_dictionary.setAttribute('href','#')
+                                              add_to_local_dictionary.setAttribute('class','w')
+                                              add_to_local_dictionary.setAttribute('id','dictionary')
+                                              add_to_local_dictionary.innerText = 'Add to Dictionary'
+                                              myDropdown.appendChild(add_to_local_dictionary)
+
+                                              
+
                                               dropdown.appendChild(span)
                                               dropdown.appendChild(myDropdown)
                                               
+                                              //add to local dictionary
+                                              var links = document.querySelectorAll('.w')
 
-                                              var links = document.querySelectorAll('a')
                                               links.forEach(link => {
-                                                link.addEventListener('click', e =>{
-                                                  // 
-                                                  span.innerText = link.innerText
-                                                  span.setAttribute("style", "color:black")
-                                                  placeCaretAtEnd(document.getElementById('mydiv'))
-                                                  
+                                                if(link.id == 'dictionary'){
+                                                  link.addEventListener('click', e=>{
+                                                    console.log('add to local dictionary!!')
+                                                    //add to local dictionary 
+                                                    fetch('http://127.0.0.1:5000/api/add_to_local_dictionary',{
+                                                      method:'POST',
+                                                      headers:{
+                                                        'Content-Type':'application/json'
+                                                      },
+                                                      body: JSON.stringify({
+                                                        "word": span.textContent.toString()
+                                                      })
+                                                    })
+                                                    .then(res => {
+                                                    return res.json()
+                                                  })
+                                                    .then(data => {
+                                                      if(data == true){
+                                                        
+                                                        span.setAttribute("style", "color:black")
+                                                        placeCaretAtEnd(document.getElementById('mydiv'))
+                                                      }
+                                                      
+                                          
+                                                    }).catch(err => {console.log(err)
+                                                    });
+                                                  })
+                                                }else{
+                                                  //select close words and update the wrong word
+                                                  link.addEventListener('click', e =>{
+                                                    
+                                                    span.innerText = link.innerText
+                                                    span.setAttribute("style", "color:black")
+                                                    placeCaretAtEnd(document.getElementById('mydiv'))
+  
                                                 })
+                                                }
+                                                  
+                                                  
+                                                
+                                                
                                               });
-
-                                   
+                                              
+                                              
                                               //JS code
                                               
                                               
-                                              document.getElementById(span.accessKey).classList.toggle("show");
-                                              console.log(document.getElementById(span.accessKey))
+                                              document.getElementById(num).classList.toggle("show");
+                                             // console.log(document.getElementById(num))
                                               
                                     
                                               window.onclick = function(event) {
@@ -241,30 +289,45 @@ function onKeySpacePress(e){
 
 //   console.log(list)
 
-//   fetch(chrome.runtime.getURL('/dropdown.html'))
-//   .then(response => response.text())
-//   .then(data => {
-//      // document.getElementById('mydiv').innerHTML = data;
-//      document.querySelectorAll('span')[0].insertAdjacentHTML('beforeend', data)
-//       //document.body.insertAdjacentHTML('beforebegin', data);
+  // fetch(chrome.runtime.getURL('/dropdown.html'))
+  // .then(response => response.text())
+  // .then(data => {
+     
+
       
-
-
-
-
-
-
-//       // other code
-//       // eg update injected elements,
-//       // add event listeners or logic to connect to other parts of the app
-//   }).catch(err => {
-//       // handle error
-//       console.log(err)
-//   });
+  // }).catch(err => {console.log(err)
+  // });
 
 // }
 
+           //if add to dictionary link clicked send fetch request to add that word in to the dictionary
 
+      //      if(link.innerText == 'Add to Dictionary'){
+        //     fetch('http://127.0.0.1:5000/api/add_to_local_dictionary',{
+        //     method:'POST',
+        //     headers:{
+        //       'Content-Type':'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //       "word": span.textContent.toString()
+        //     })
+        //   })
+        //   .then(res => {
+        //   return res.json()
+        // })
+        //   .then(data => {
+        //     if(data == true){
+        //       span.setAttribute("style", "color:black")
+        //       placeCaretAtEnd(document.getElementById('mydiv'))
+        //     }
+            
+
+        //   }).catch(err => {console.log(err)
+        //   });
+
+
+          
+      // }
 
 
 
