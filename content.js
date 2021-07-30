@@ -1,6 +1,6 @@
 document.addEventListener('keyup',onKeySpacePress);
 
-
+//this function puts the caret at the end of a word
 function placeCaretAtEnd(el) {
   el.focus();
   if (typeof window.getSelection != "undefined"
@@ -20,16 +20,17 @@ function placeCaretAtEnd(el) {
   // console.log("[placeCaretAtEnd updated]");
 }
 
-
+//this function works with on space key press
 function onKeySpacePress(e){
 
       var x = document.activeElement.tagName;
+
       
 
-      if(x == 'DIV'&& document.hasFocus() && e.keyCode == 32){
+      if(x == 'DIV'&& document.hasFocus() && e.keyCode == 32){//code works if the selected element is a div and space key is pressed
        
 
-          let nodeList = document.querySelectorAll('#mydiv')
+          let nodeList = document.querySelectorAll('#mydiv')//div we type have this class ID
           
           
           
@@ -41,10 +42,10 @@ function onKeySpacePress(e){
             //trim both ends remove punctuations and numbers
             wordList = nodeList[i].innerText.trim().replace(/^\s+|\s+$/g,'').replace(/[.,?\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ").replace(/[0-9]/g, '').split(/\s+/);
            
-            var key = 1
+            var key = 1 //used this key variable so we can identify spans individually
             for(let j=0; j<wordList.length; j++){
               
-
+              //fetch method for auto correcting frequently misspelled words
              fetch('http://127.0.0.1:5000/api/misspelledword',{
                      method:'POST',
                      headers:{
@@ -68,7 +69,7 @@ function onKeySpacePress(e){
 
                         placeCaretAtEnd(document.getElementById('mydiv'))
                       }else{
-                        
+                        //api call for checking if the word is in our dictionary or not
                           fetch('http://127.0.0.1:5000/api/spellchecking',{
                                   method:'POST',
                                   headers:{
@@ -103,7 +104,7 @@ function onKeySpacePress(e){
                                           span.addEventListener('click',e =>{
                                             //console.log(span.textContent)
                                             
-
+                                            //api call for showing similar words
                                             fetch('http://127.0.0.1:5000/api/closewords',{
                                               method:'POST',
                                               headers:{
@@ -141,7 +142,7 @@ function onKeySpacePress(e){
                                               myDropdown.setAttribute("id",num)
 
                                              
-
+                                              //create a dropdown list
                                               for(var i=0; i<data.length;i++){
                                                 var a = document.createElement('a')
                                                 a.setAttribute('href','#')
@@ -161,7 +162,7 @@ function onKeySpacePress(e){
                                               myDropdown.appendChild(add_to_local_dictionary)
 
                                               
-
+                                              //add the list to dom
                                               dropdown.appendChild(span)
                                               dropdown.appendChild(myDropdown)
                                               
@@ -180,6 +181,7 @@ function onKeySpacePress(e){
                                                       },
                                                       body: JSON.stringify({
                                                         "word": span.textContent.toString()
+                                                        
                                                       })
                                                     })
                                                     .then(res => {
@@ -213,13 +215,13 @@ function onKeySpacePress(e){
                                               });
                                               
                                               
-                                              //JS code
+                                              
                                               
                                               
                                               document.getElementById(num).classList.toggle("show");
                                              // console.log(document.getElementById(num))
                                               
-                                    
+                                              //this is for if we click outside of the dropdownlist, close the list
                                               window.onclick = function(event) {
                                                 if (!event.target.matches('.dropbtn')) {
                                                   var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -285,53 +287,68 @@ function onKeySpacePress(e){
 
 
 
-// function renderList(list){
 
-//   console.log(list)
 
-  // fetch(chrome.runtime.getURL('/dropdown.html'))
-  // .then(response => response.text())
-  // .then(data => {
-     
 
+// //google document plugin starts from here ---------------------------------------------------------
+
+
+
+// let activeframe = document.getElementsByClassName("docs-texteventtarget-iframe docs-offscreen-z-index docs-texteventtarget-iframe-negative-top")[0]
+// let key = 1
+// activeframe.contentDocument.activeElement.addEventListener('keydown',e=>{
+//   if(e.keyCode == 32){
+//     let htmlCollection = document.getElementsByClassName('kix-wordhtmlgenerator-word-node')
+
+//     for(let i=0; i<htmlCollection.length; i++){
+//       wordList = htmlCollection[i].textContent.trim().replace(/^\s+|\s+$/g,'').replace(/[.,?\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ").replace(/[0-9]/g, '').split(/\s+/);
+//    //console.log(wordList)
+//       wordList.forEach(word => {
+//           fetch('http://127.0.0.1:5000/api/spellchecking',
+//             {
+//                 method:'POST',
+//                 headers:{
+//                 'Content-Type':'application/json'
+//                 },
+//                   body: JSON.stringify({
+//                   "word": word.toString()
+//                 })
+//             }).then(res => {
+//                    return res.json()
+//             })
+//             .then(data => {
+//               if(data == false){
+//                 console.log('this word is incorrect :' +word)
+//                 //make words red that are not in the dictionary
+//                 let originalHtml = htmlCollection[i].innerHTML
+//                 let newHtml = originalHtml.replace(new RegExp(word, "g"),`<span style="color:red" accesskey=${key} >${word}</span>`);
+//                 htmlCollection[i].innerHTML = newHtml
+//                 key = key + 1
+
+//                 //on click show similer words
+//                 // let spanList = document.querySelectorAll(`span`)
+//                 // spanList.forEach(span => {
+//                 //   console.log(span)
+//                 // });
+// //              
+
+                
+                
+//               }
+//             }).catch(error => console.log('ERROR!!' +error))
+//       });
       
-  // }).catch(err => {console.log(err)
-  // });
 
-// }
+        
+        
+      
+        
+      
+    
+//     }  
 
-           //if add to dictionary link clicked send fetch request to add that word in to the dictionary
-
-      //      if(link.innerText == 'Add to Dictionary'){
-        //     fetch('http://127.0.0.1:5000/api/add_to_local_dictionary',{
-        //     method:'POST',
-        //     headers:{
-        //       'Content-Type':'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //       "word": span.textContent.toString()
-        //     })
-        //   })
-        //   .then(res => {
-        //   return res.json()
-        // })
-        //   .then(data => {
-        //     if(data == true){
-        //       span.setAttribute("style", "color:black")
-        //       placeCaretAtEnd(document.getElementById('mydiv'))
-        //     }
-            
-
-        //   }).catch(err => {console.log(err)
-        //   });
-
-
-          
-      // }
-
-
-
-
+//   }
+//   })
 
 
 
