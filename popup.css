@@ -1,0 +1,16 @@
+.list-item {
+    padding: 5px 10px;
+    background-color: rgb(255, 107, 87);
+    border: 2px solid rgb(255, 107, 87);
+    font-size: 15px;
+    margin: 10px auto;
+    border-radius: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(231, 231, 231);
+}
+
+.list-item:hover {
+    background-color: rgb(228, 72, 51);
+    cursor: pointer;
+    border: 2px solid rgb(255, 30, 0)
+}

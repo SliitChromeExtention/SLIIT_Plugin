@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(217, 230, 236);
+        }
+        
+        .flex-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 5px;
+        }
+
+        .doc-header{
+            font-family: 'Poppins', sans-serif;
+            font-size: 35px;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .doc-paragraphs {
+            font-family: 'Poppins', sans-serif;
+            margin: 10px 10px;
+        }
+
+        .textbox {
+            height: 450px;
+            margin: 20px auto;
+            padding: 20px 15px;
+            outline: none;
+            border: 3px solid rgb(198, 198, 198);
+            border-radius: 20px;
+            transition: 0.3s;
+            background-color: white;
+        }
+
+        #typing[placeholder]:empty:before {
+            content: attr(placeholder);
+            color: rgb(196, 196, 196);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #typing:focus{
+            border: 3px solid rgb(91, 140, 255);
+            box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.19);
+        }
+
+        .btn-copy {
+            font-family: 'Poppins', sans-serif;
+            padding: 14px 15px;
+            border-radius: 16px;
+            border: none;
+            color: white;
+            background-color: blue;
+            float: right;
+            margin: 5px 10px;
+        }
+
+        .btn-copy:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h3 class="doc-header">HelaGrammerly Transliterate</h3>
+    
+    <div class="flex-container">
+        <div class="container">
+            <p class="doc-paragraphs">Start writing text in the input field to check spellings.</p>
+            <div contenteditable="true" class="textbox" id="typing" placeholder="Start typing in here"></div>
+        </div>
+        <div class="container">
+            <p class="doc-paragraphs">Result will appear in this box</p>
+            <div class="textbox" id="result"></div>
+            <button class="btn-copy" id="copy">Copy text</button>
+        </div>
+    </div>
+</body>
+<script src="typingSystem.js"></script>
+</html>

@@ -1,11 +1,15 @@
-// console.log('background running');
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	if (message == "spellchecker") {
+		openSpellchecker();
+	} else if (message == "transliterate") {
+		openTransliteration();
+	}
+});
 
+function openSpellchecker() {
+	let spellcheck = window.open("./index.html");
+}
 
-// chrome.browserAction.onClicked.addListener(buttonClicked)
-
-// function buttonClicked(tab){
-//     let msg = {
-//         txt:"clicked"
-//     }
-//     chrome.tabs.sendMessage(tab.id, msg)
-// }
+function openTransliteration() {
+	let transliterate = window.open("./transliterate.html");
+}
