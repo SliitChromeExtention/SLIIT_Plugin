@@ -20,7 +20,14 @@
         .doc-header{
             font-family: 'Poppins', sans-serif;
             font-size: 35px;
-            margin: 20px auto;
+            margin: 30px auto 0px;
+            width: fit-content;
+        }
+
+        .doc-sub-header{
+            font-family: 'Poppins', sans-serif;
+            font-size: 27px;
+            margin: 0px auto 20px;
             width: fit-content;
         }
 
@@ -54,10 +61,10 @@
 </head>
 <body>
     <div class="container">
-        <h3 class="doc-header">HelaGrammerly</h3>
+        <h3 class="doc-header">Sinhala Spell Checker</h3>
+        <h4 class="doc-sub-header">Version 0.9 Beta</h4>
         <p class="doc-paragraphs">Start writing Sinhala text in the input field to check spellings. This will show you corrections in <span style="color: red;">Red</span></p>
         <div contenteditable="true" id="mydiv" placeholder="Start typing in here"></div>
     </div>
 </body>
-<script src="content.js"></script>
 </html>
