@@ -49,7 +49,7 @@ function onKeySpacePress(e) {
 			var key = 1; //used this key variable so we can identify spans individually
 			for (let j = 0; j < wordList.length; j++) {
 				// fetch method for auto correcting frequently misspelled words
-				fetch("http://127.0.0.1:5000/api/misspelledword", {
+				fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/misspelledword", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -75,7 +75,7 @@ function onKeySpacePress(e) {
 							placeCaretAtEnd(document.getElementById("mydiv"));
 						} else {
 							//api call for checking if the word is in our dictionary or not
-							fetch("http://127.0.0.1:5000/api/spellchecking", {
+							fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/spellchecking", {
 								method: "POST",
 								headers: {
 									"Content-Type": "application/json",
@@ -116,7 +116,7 @@ function onKeySpacePress(e) {
 													//console.log(span.textContent)
 
 													//api call for showing similar words
-													fetch("http://127.0.0.1:5000/api/closewords", {
+													fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/closewords", {
 														method: "POST",
 														headers: {
 															"Content-Type": "application/json",
@@ -193,7 +193,7 @@ function onKeySpacePress(e) {
 																		console.log("add to local dictionary!!");
 																		//add to local dictionary
 																		fetch(
-																			"http://127.0.0.1:5000/api/add_to_local_dictionary",
+																			"http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/add_to_local_dictionary",
 																			{
 																				method: "POST",
 																				headers: {

@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 function openSpellchecker() {
-	let spellcheck = window.open("./index.html");
+	let spellcheck = window.open("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/html/index.html");
 }
 
 function openTransliteration() {
