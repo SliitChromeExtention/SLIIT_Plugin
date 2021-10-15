@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Sinhala spellchecker</title>
     <style>
         body {
             background-color: rgb(217, 230, 236);
@@ -67,4 +67,11 @@
         <div contenteditable="true" id="mydiv" placeholder="Start typing in here"></div>
     </div>
 </body>
+<script>
+    document.querySelector('[contenteditable]').addEventListener('paste', function (e) {
+        e.preventDefault()
+        var text = e.clipboardData.getData('text/plain')
+        document.execCommand('insertText', false, text)
+    })
+</script>
 </html>
