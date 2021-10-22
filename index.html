@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,19 +13,19 @@
             background-color: rgb(217, 230, 236);
         }
 
-        .container{
+        .container {
             width: 95%;
             margin: 20px auto;
         }
 
-        .doc-header{
+        .doc-header {
             font-family: 'Poppins', sans-serif;
             font-size: 35px;
             margin: 30px auto 0px;
             width: fit-content;
         }
 
-        .doc-sub-header{
+        .doc-sub-header {
             font-family: 'Poppins', sans-serif;
             font-size: 27px;
             margin: 0px auto 20px;
@@ -33,7 +34,7 @@
 
         .doc-paragraphs {
             font-family: 'Poppins', sans-serif;
-            margin: 10px 10px;
+            margin: 10px 0px;
         }
 
         #mydiv {
@@ -53,17 +54,26 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        #mydiv:focus{
+        #mydiv:focus {
             border: 3px solid rgb(91, 140, 255);
             box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.19);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h3 class="doc-header">Sinhala Spell Checker</h3>
         <h4 class="doc-sub-header">Version 0.9 Beta</h4>
-        <p class="doc-paragraphs">Start writing Sinhala text in the input field to check spellings. This will show you corrections in <span style="color: red;">Red</span></p>
+
+        <p class="doc-paragraphs">Type a word here and click on "Check" to check spellings of a word</p>
+        <div class="spell-div">
+            <input type="text" id="spellchek" class="spell-input" />
+            <button class="spell-btn" id="spell-btn">Check</button>
+            <p id="spell-result" class="doc-paragraphs"></p>
+        </div>
+        <p class="doc-paragraphs">Start writing Sinhala text in the input field to check spellings. This will show you
+            corrections in <span style="color: red;">Red</span></p>
         <div contenteditable="true" id="mydiv" placeholder="Start typing in here"></div>
     </div>
 </body>
@@ -73,5 +83,59 @@
         var text = e.clipboardData.getData('text/plain')
         document.execCommand('insertText', false, text)
     })
+
+    var btn = document.getElementById('spell-btn');
+    var inputValue = document.getElementById('spellchek');
+    var result = document.getElementById('spell-result');
+
+    var resultFromApi = "", correctForm = "";
+
+    btn.addEventListener("click", () => {
+        if (inputValue.value != "") {
+            fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/spellchecking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    word: inputValue.value,
+                }),
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if (data) {
+                    result.innerHTML = "This word is correct";
+                } else {
+                    result.innerHTML = "This word is incorrect";
+                    fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/misspelledword", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            word: inputValue.value,
+                        }),
+                    })
+                    .then((res) => {
+                        return res.json();
+                    })
+                    .then(d => {
+                        if (d) {
+                            result.innerHTML += ". Correct form of the word is: " + d;
+                        }
+                    })
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Connection error");
+            })
+        } else {
+            result.innerHTML = "Please enter a word in the input field"
+        }
+    })
 </script>
+
 </html>
