@@ -46,6 +46,16 @@ function onKeySpacePress(e) {
 				.replace(/[0-9]/g, "")
 				.split(/\s+/);
 
+			var sentences = nodeList[i].innerText.split(".");
+
+			sentences = Array.from(sentences).filter((item) => {
+				return item.length > 10;
+			});
+
+			sentences.forEach((sen, key) => {
+				console.log(`sentence ${key}: ${sen}`);
+			});
+
 			var key = 1; //used this key variable so we can identify spans individually
 			for (let j = 0; j < wordList.length; j++) {
 				// fetch method for auto correcting frequently misspelled words
@@ -113,7 +123,7 @@ function onKeySpacePress(e) {
 										spanlist.forEach((span) => {
 											if (span.accessKey >= 1) {
 												span.addEventListener("click", (e) => {
-													//console.log(span.textContent)
+													// console.log(span.getBoundingClientRect()); //  onclick span check
 
 													//api call for showing similar words
 													fetch("http://sinhalagrammarly-env.eba-myktnhiv.us-east-2.elasticbeanstalk.com/api/closewords", {
@@ -129,7 +139,7 @@ function onKeySpacePress(e) {
 															return res.json();
 														})
 														.then((data) => {
-															console.log(data);
+															// console.log("console log", data);
 
 															num = Math.random();
 															// `element` is the element you want to wrap

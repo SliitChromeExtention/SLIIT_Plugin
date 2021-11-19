@@ -58,6 +58,38 @@
             border: 3px solid rgb(91, 140, 255);
             box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.19);
         }
+
+        .spell-input {
+            padding: 2px 15px;
+            outline: none;
+            border: 3px solid rgb(198, 198, 198);
+            border-radius: 5px;
+            transition: 0.3s;
+            background-color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+        }
+
+        .spell-input:focus {
+            border: 3px solid rgb(91, 140, 255);
+            box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.19);
+        }
+
+        .spell-btn {
+            padding: 2px 5px;
+            outline: none;
+            border: 3px solid blue;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+            background-color: blue;
+            font-family: 'Poppins', sans-serif;
+            font-size: 12px;
+        }
+
+        .spell-btn:active {
+            box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.19);
+        }
     </style>
 </head>
 
@@ -68,7 +100,7 @@
 
         <p class="doc-paragraphs">Type a word here and click on "Check" to check spellings of a word</p>
         <div class="spell-div">
-            <input type="text" id="spellchek" class="spell-input" />
+            <input type="text" id="spellchek" class="spell-input" placeholder="Word"/>
             <button class="spell-btn" id="spell-btn">Check</button>
             <p id="spell-result" class="doc-paragraphs"></p>
         </div>
